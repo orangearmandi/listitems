@@ -94,7 +94,7 @@ class _PrefsNewPageState extends State<PrefsNewPage> {
                     TextField(
                       controller: customNameCtrl,
                       decoration: InputDecoration(
-                        labelText: 'Custom Name',
+                        labelText: CustomNameFieldLabel,
                         prefixIcon: const Icon(Icons.label),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -267,7 +267,7 @@ class _PrefsNewPageState extends State<PrefsNewPage> {
       if (precio == null) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('Invalid price')));
+        ).showSnackBar(const SnackBar(content: Text('Precio inválido')));
         return;
       }
 
