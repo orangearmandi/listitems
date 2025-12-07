@@ -42,51 +42,45 @@ sequenceDiagram
     LocalStorage (Hive)-->>Cubit: Confirm local update
     Cubit->>UI (View): Emit updated state
     UI (View)-->>User: Show updated item
+## Project Structure
+
 ```
-
-
 lib/
-│
-├── main.dart                          # Punto de entrada de la app
-│
-├── config/
-│   ├── configuration.dart             # Configuración de API (PocketBase)
-│   └── schema_configuration.dart      # Esquemas de configuración
-│
-├── core/
+├── main.dart                          # Application entry point
+├── config/                            # Configuration files
+│   ├── configuration.dart             # API configuration (PocketBase)
+│   └── schema_configuration.dart      # Configuration schemas
+├── core/                              # Core utilities and constants
 │   ├── constant/
-│   │   ├── controller_state.dart      # Estados de controladores
-│   │   └── nameslabel.dart            # Etiquetas y constantes de UI
+│   │   ├── controller_state.dart      # Controller states
+│   │   └── nameslabel.dart            # UI labels and constants
 │   └── router/
-│       └── go_router.dart             # Configuración de navegación (GoRouter)
-│
-├── list/                              # Módulo/Feature: Gestión de lista de ítems
-│   ├── cubit/
-│   │   ├── apitcubit.dart             # Lógica de negocio para API de ítems
-│   │   ├── api_state.dart             # Estados del cubit de API
-│   │   ├── preference_cubit.dart      # Lógica para preferencias locales
-│   │   └── preference_state.dart      # Estados del cubit de preferencias
-│   ├── model/
-│   │   ├── item.dart                  # Modelo de ítem (de API)
-│   │   └── saved_item.dart            # Modelo de ítem guardado (Hive)
-│   ├── utils/
-│   │   └── date_formated.dart         # Utilidad para formatear fechas
-│   └── view/
-│       ├── ApiDetailPage.dart         # Página de detalle de ítem
-│       ├── ApiEditPage.dart           # Página de edición de ítem
-│       ├── ApiListPage.dart           # Página de lista de ítems
-│       └── PrefsNewPage.dart          # Página de nuevas preferencias/ítems
-│
-├── login/                             # Módulo/Feature: Autenticación (si implementado)
+│       └── go_router.dart             # Navigation configuration (GoRouter)
+├── list/                              # Feature: Item list management
+│   ├── cubit/                         # Business logic (BLoC pattern)
+│   │   ├── apitcubit.dart             # API item logic
+│   │   ├── api_state.dart             # API cubit states
+│   │   ├── preference_cubit.dart      # Local preferences logic
+│   │   └── preference_state.dart      # Preference cubit states
+│   ├── model/                         # Data models
+│   │   ├── item.dart                  # API item model
+│   │   └── saved_item.dart            # Saved item model (Hive)
+│   ├── utils/                         # Utilities
+│   │   └── date_formated.dart         # Date formatting utility
+│   └── view/                          # UI pages
+│       ├── ApiDetailPage.dart         # Item detail page
+│       ├── ApiEditPage.dart           # Item edit page
+│       ├── ApiListPage.dart           # Item list page
+│       └── PrefsNewPage.dart          # New preferences/item page
+├── login/                             # Feature: Authentication (if implemented)
 │   ├── cubit/
 │   ├── model/
 │   ├── utils/
 │   └── view/
-│
-└── widget/                            # Widgets compartidos/reutilizables
-    ├── dialog_widget.dart             # Diálogo de confirmación personalizado
-    └── item_widget.dart               # Widget para mostrar ítems en lista
-
+└── widget/                            # Shared/reusable widgets
+    ├── dialog_widget.dart             # Custom confirmation dialog
+    └── item_widget.dart               # Item display widget
+```
 
 ## Features
 
