@@ -42,9 +42,9 @@ sequenceDiagram
     LocalStorage (Hive)-->>Cubit: Confirm local update
     Cubit->>UI (View): Emit updated state
     UI (View)-->>User: Show updated item
-## Project Structure
+```
 
-![alt text](doc/files.png)
+## Project Structure
 
 ## Features
 
