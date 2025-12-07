@@ -44,44 +44,7 @@ sequenceDiagram
     UI (View)-->>User: Show updated item
 ## Project Structure
 
-```
-lib/
-├── main.dart                          # Application entry point
-├── config/                            # Configuration files
-│   ├── configuration.dart             # API configuration (PocketBase)
-│   └── schema_configuration.dart      # Configuration schemas
-├── core/                              # Core utilities and constants
-│   ├── constant/
-│   │   ├── controller_state.dart      # Controller states
-│   │   └── nameslabel.dart            # UI labels and constants
-│   └── router/
-│       └── go_router.dart             # Navigation configuration (GoRouter)
-├── list/                              # Feature: Item list management
-│   ├── cubit/                         # Business logic (BLoC pattern)
-│   │   ├── apitcubit.dart             # API item logic
-│   │   ├── api_state.dart             # API cubit states
-│   │   ├── preference_cubit.dart      # Local preferences logic
-│   │   └── preference_state.dart      # Preference cubit states
-│   ├── model/                         # Data models
-│   │   ├── item.dart                  # API item model
-│   │   └── saved_item.dart            # Saved item model (Hive)
-│   ├── utils/                         # Utilities
-│   │   └── date_formated.dart         # Date formatting utility
-│   └── view/                          # UI pages
-│       ├── ApiDetailPage.dart         # Item detail page
-│       ├── ApiEditPage.dart           # Item edit page
-│       ├── ApiListPage.dart           # Item list page
-│       ├── PrefsNewPage.dart          # New preferences/item page
-│       └── SavedItemsPage.dart        # Saved items list page
-├── login/                             # Feature: Authentication (if implemented)
-│   ├── cubit/
-│   ├── model/
-│   ├── utils/
-│   └── view/
-└── widget/                            # Shared/reusable widgets
-    ├── dialog_widget.dart             # Custom confirmation dialog
-    └── item_widget.dart               # Item display widget
-```
+![alt text](doc/files.png)
 
 ## Features
 
