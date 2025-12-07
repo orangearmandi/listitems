@@ -6,6 +6,6 @@ class SchemaConfiguration {
 
 class ConfigurationEndpoints {
   final String listItems;
-
-  ConfigurationEndpoints({required this.listItems});
+  final String userProfile;
+  ConfigurationEndpoints({required this.listItems, required this.userProfile});
 }

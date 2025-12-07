@@ -1,11 +1,11 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:listitems/core/constant/nameslabel.dart';
 import '../cubit/apitcubit.dart';
 import '../model/item.dart';
 
@@ -46,9 +46,11 @@ class _ApiEditPageState extends State<ApiEditPage> {
         });
       }
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Error picking image: $e')));
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error picking image: $e')));
+      }
     }
   }
 
@@ -59,9 +61,9 @@ class _ApiEditPageState extends State<ApiEditPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           color: Colors.white,
-          onPressed: () => context.go('/'),
+          onPressed: () => context.go('/api/${widget.itemToEdit.id}'),
         ),
-        title: const Text('Edit Item', style: TextStyle(color: Colors.white)),
+        title: Text(editItemLabel, style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blueAccent,
       ),
       body: SingleChildScrollView(
@@ -81,7 +83,7 @@ class _ApiEditPageState extends State<ApiEditPage> {
                     TextField(
                       controller: productNameCtrl,
                       decoration: InputDecoration(
-                        labelText: 'Product Name',
+                        labelText: CustomNameFieldLabel,
                         prefixIcon: const Icon(Icons.shopping_bag),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -92,7 +94,7 @@ class _ApiEditPageState extends State<ApiEditPage> {
                     TextField(
                       controller: descripcionCtrl,
                       decoration: InputDecoration(
-                        labelText: 'Description',
+                        labelText: descriptionLabel,
                         prefixIcon: const Icon(Icons.description),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -104,7 +106,7 @@ class _ApiEditPageState extends State<ApiEditPage> {
                     TextField(
                       controller: precioCtrl,
                       decoration: InputDecoration(
-                        labelText: 'Price',
+                        labelText: priceFieldLabel,
                         prefixIcon: const Icon(Icons.attach_money),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -126,9 +128,9 @@ class _ApiEditPageState extends State<ApiEditPage> {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    const Text(
-                      'Select Image (optional)',
-                      style: TextStyle(
+                    Text(
+                      selectImageLabel,
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -140,7 +142,7 @@ class _ApiEditPageState extends State<ApiEditPage> {
                         ElevatedButton.icon(
                           onPressed: _pickImage,
                           icon: const Icon(Icons.image),
-                          label: const Text('Pick Image'),
+                          label: Text(pickImageLabel),
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -170,6 +172,8 @@ class _ApiEditPageState extends State<ApiEditPage> {
                 return ElevatedButton(
                   onPressed: state is! ApiLoading ? _updateItem : null,
                   style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -177,14 +181,18 @@ class _ApiEditPageState extends State<ApiEditPage> {
                   ),
                   child: state is ApiLoading
                       ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text('Update Item'),
+                      : Text(editButtonLabel),
                 );
               },
             ),
             const SizedBox(height: 10),
-            TextButton(
-              onPressed: () => context.go('/'),
-              child: const Text('Cancel'),
+            ElevatedButton(
+              onPressed: () => context.go('/api/${widget.itemToEdit.id}'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+              ),
+              child: Text(cancelButtonLabel),
             ),
           ],
         ),
@@ -227,16 +235,19 @@ class _ApiEditPageState extends State<ApiEditPage> {
           imageBytes: _imageBytes,
         )
         .then((_) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('Item updated')));
-          context.go('/');
+          if (mounted) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(const SnackBar(content: Text('Item updated')));
+            context.go('/api/${widget.itemToEdit.id}');
+          }
         })
         .catchError((error) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error updating item: $error')),
-          );
-          print('Error updating item: $error');
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Error updating item: $error')),
+            );
+          }
         });
   }
 }

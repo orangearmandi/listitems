@@ -7,8 +7,9 @@ class ConfigurationApiList {
   ConfigurationApiList() {
     _config = SchemaConfiguration(
       endpoints: ConfigurationEndpoints(
-        listItems:
-            '$apiBaseUrl/api/collections/list/records', // post,delete,get,patch (no used)
+        listItems: '$apiBaseUrl/api/collections/list/records',
+        userProfile:
+            '$apiBaseUrl/api/collections/users/records', // post,delete,get,patch (no used)
       ),
     );
   }

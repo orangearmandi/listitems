@@ -11,6 +11,7 @@ import '../cubit/apitcubit.dart';
 import '../cubit/preference_cubit.dart';
 
 import '../model/saved_item.dart';
+import '../../core/constant/nameslabel.dart';
 
 // --- PrefsNewPage ---
 
@@ -71,7 +72,7 @@ class _PrefsNewPageState extends State<PrefsNewPage> {
           onPressed: () => context.go('/'),
         ),
         title: Text(
-          widget.itemToEdit != null ? 'Edit Item' : 'Create New Item',
+          widget.itemToEdit != null ? editItemLabel : createNewItemLabel,
           style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blueAccent,
@@ -104,7 +105,7 @@ class _PrefsNewPageState extends State<PrefsNewPage> {
                     TextField(
                       controller: descripcionCtrl,
                       decoration: InputDecoration(
-                        labelText: 'Description',
+                        labelText: descriptionFieldLabel,
                         prefixIcon: const Icon(Icons.description),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -117,7 +118,7 @@ class _PrefsNewPageState extends State<PrefsNewPage> {
                       TextField(
                         controller: productNameCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Product Name',
+                          labelText: productNameFieldLabel,
                           prefixIcon: const Icon(Icons.shopping_bag),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -128,7 +129,7 @@ class _PrefsNewPageState extends State<PrefsNewPage> {
                       TextField(
                         controller: precioCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Price',
+                          labelText: priceFieldLabel,
                           prefixIcon: const Icon(Icons.attach_money),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -152,8 +153,8 @@ class _PrefsNewPageState extends State<PrefsNewPage> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      const Text(
-                        'Select Image',
+                      Text(
+                        selectImageLabel,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -166,7 +167,7 @@ class _PrefsNewPageState extends State<PrefsNewPage> {
                           ElevatedButton.icon(
                             onPressed: _pickImage,
                             icon: const Icon(Icons.image),
-                            label: const Text('Pick Image'),
+                            label: Text(pickImageLabel),
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
@@ -206,8 +207,8 @@ class _PrefsNewPageState extends State<PrefsNewPage> {
                       ? const CircularProgressIndicator(color: Colors.white)
                       : Text(
                           widget.itemToEdit != null
-                              ? 'Update'
-                              : 'Create and Save',
+                              ? 'Actualizar y Guardar'
+                              : 'Crear y Guardar',
                         ),
                 );
               },
@@ -215,7 +216,7 @@ class _PrefsNewPageState extends State<PrefsNewPage> {
             const SizedBox(height: 10),
             TextButton(
               onPressed: () => context.go('/'),
-              child: const Text('Cancel'),
+              child: Text(cancelButtonLabel),
             ),
           ],
         ),
@@ -230,7 +231,7 @@ class _PrefsNewPageState extends State<PrefsNewPage> {
     if (customName.isEmpty || descripcion.isEmpty) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('Please fill all fields')));
+      ).showSnackBar(SnackBar(content: Text(errorsLabelFillalFields)));
       return;
     }
 
@@ -258,7 +259,7 @@ class _PrefsNewPageState extends State<PrefsNewPage> {
       if (productName.isEmpty || precioText.isEmpty) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('Please fill all fields')));
+        ).showSnackBar(SnackBar(content: Text(errorsLabelFillalFields)));
         return;
       }
 

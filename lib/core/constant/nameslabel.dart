@@ -1,0 +1,27 @@
+String descriptionLabel = 'Descripción';
+String createNewItemLabel = 'Crear Nuevo Item';
+String CustomNameFieldLabel = 'Nombre Item';
+String UpdateDateLabel = 'Fecha de Actualización';
+String priceLabel = 'Precio';
+String createdLabel = 'Fecha de Creación';
+
+String editItemLabel = 'Editar Item';
+String deleteItemLabel = 'Eliminar Item';
+String confirmDeletionLabel = 'Confirmar la eliminacion del item?';
+String itemDeletedLabel = 'Item eliminado';
+String errorDeletingItemLabel = 'Error al eliminar el item: ';
+String confirmationTitleLabel = 'Confirmación';
+String confirmationContentLabel = '¿Estás seguro?';
+String confirmButtonLabel = 'Confirmar';
+String cancelButtonLabel = 'Cancelar';
+String closeButtonLabel = 'Cerrar';
+String deleteButtonLabel = 'Eliminar';
+String descriptionFieldLabel = 'Descripción';
+String productNameFieldLabel = 'Nombre del Producto';
+String priceFieldLabel = 'Precio';
+String quantityFieldLabel = 'Cantidad';
+String saveButtonLabel = 'Guardar';
+String editButtonLabel = 'Editar';
+String selectImageLabel = 'Seleccionar Imagen';
+String pickImageLabel = 'Elegir Imagen';
+String errorsLabelFillalFields = 'Por favor, complete todos los campos';
