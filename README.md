@@ -10,6 +10,85 @@ This app allows users to:
 - Save items with custom names to local storage
 - View, edit, and delete saved items
 
+## Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant UI (View)
+    participant Cubit
+    participant API (PocketBase)
+    participant LocalStorage (Hive)
+
+    User->>UI (View): Open app / Navigate to list
+    UI (View)->>Cubit: Request load items
+    Cubit->>API (PocketBase): Fetch items from API
+    API (PocketBase)-->>Cubit: Return items data
+    Cubit->>UI (View): Emit loaded state with items
+    UI (View)-->>User: Display items list
+
+    User->>UI (View): Select item to save
+    UI (View)->>Cubit: Save item to preferences
+    Cubit->>LocalStorage (Hive): Store item locally
+    LocalStorage (Hive)-->>Cubit: Confirm save
+    Cubit->>UI (View): Emit updated state
+    UI (View)-->>User: Show success message
+
+    User->>UI (View): Edit saved item
+    UI (View)->>Cubit: Update item
+    Cubit->>API (PocketBase): Send update to API
+    API (PocketBase)-->>Cubit: Confirm update
+    Cubit->>LocalStorage (Hive): Update local storage
+    LocalStorage (Hive)-->>Cubit: Confirm local update
+    Cubit->>UI (View): Emit updated state
+    UI (View)-->>User: Show updated item
+```
+![alt text](doc/flow_diagram.png)
+
+
+lib/
+│
+├── main.dart                          # Punto de entrada de la app
+│
+├── config/
+│   ├── configuration.dart             # Configuración de API (PocketBase)
+│   └── schema_configuration.dart      # Esquemas de configuración
+│
+├── core/
+│   ├── constant/
+│   │   ├── controller_state.dart      # Estados de controladores
+│   │   └── nameslabel.dart            # Etiquetas y constantes de UI
+│   └── router/
+│       └── go_router.dart             # Configuración de navegación (GoRouter)
+│
+├── list/                              # Módulo/Feature: Gestión de lista de ítems
+│   ├── cubit/
+│   │   ├── apitcubit.dart             # Lógica de negocio para API de ítems
+│   │   ├── api_state.dart             # Estados del cubit de API
+│   │   ├── preference_cubit.dart      # Lógica para preferencias locales
+│   │   └── preference_state.dart      # Estados del cubit de preferencias
+│   ├── model/
+│   │   ├── item.dart                  # Modelo de ítem (de API)
+│   │   └── saved_item.dart            # Modelo de ítem guardado (Hive)
+│   ├── utils/
+│   │   └── date_formated.dart         # Utilidad para formatear fechas
+│   └── view/
+│       ├── ApiDetailPage.dart         # Página de detalle de ítem
+│       ├── ApiEditPage.dart           # Página de edición de ítem
+│       ├── ApiListPage.dart           # Página de lista de ítems
+│       └── PrefsNewPage.dart          # Página de nuevas preferencias/ítems
+│
+├── login/                             # Módulo/Feature: Autenticación (si implementado)
+│   ├── cubit/
+│   ├── model/
+│   ├── utils/
+│   └── view/
+│
+└── widget/                            # Widgets compartidos/reutilizables
+    ├── dialog_widget.dart             # Diálogo de confirmación personalizado
+    └── item_widget.dart               # Widget para mostrar ítems en lista
+
+
 ## Features
 
 - **API Integration**: Fetches items from a REST API
