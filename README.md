@@ -43,7 +43,6 @@ sequenceDiagram
     Cubit->>UI (View): Emit updated state
     UI (View)-->>User: Show updated item
 ```
-![alt text](doc/flow_diagram.png)
 
 
 lib/
